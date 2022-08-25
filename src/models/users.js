@@ -1,21 +1,21 @@
-import { knex } from "../server/connection";
+const knex = require("../server/connection");
 
-export const emailExists = async (email: string) => {
+const emailExists = async (email) => {
   console.log(email);
   const list = await knex("users").select("email").where({ email }).first();
   return list;
 };
 
-export const usernameExists = async (username: string) => {
+const usernameExists = async (username) => {
   const list = await knex("users").where({ username }).first();
   return list;
 };
 
-export const insertUser = async (
-  name: string,
-  username: string,
-  email: string,
-  password: string
+const insertUser = async (
+  name,
+  username,
+  email,
+  password
 ) => {
   name = name.trim();
   email = email.trim();
@@ -25,7 +25,16 @@ export const insertUser = async (
   return newUser;
 };
 
-export const userExists = async (id: string) => {
+const userExists = async (id) => {
   const list = await knex("users").where({ id }).first();
   return list;
 };
+
+module.exports = {
+  emailExists,
+  userExists,
+  usernameExists,
+  insertUser
+}
+
+

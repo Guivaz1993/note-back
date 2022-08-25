@@ -1,17 +1,10 @@
-import * as bcrypt from "bcrypt";
-import { Request, Response } from "express";
-import * as jwt from "jsonwebtoken";
-import { SignIn, SignUp, RequestWithUser } from "../interface/users.interface";
-import * as modelUsers from "../models/users";
-import { signUpSchema, loginSchema } from "../validations/users";
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const modelUsers = require("../models/users");
+const { signUpSchema, loginSchema } = require("../validations/users");
 
-function getErrorMessage(error: unknown) {
-  if (error instanceof Error) return error.message;
-  return String(error);
-}
-
-export const signUp = async (req: Request, res: Response) => {
-  const { name, email, username, password }: SignUp = req.body;
+const signUp = async (req, res) => {
+  const { name, email, username, password } = req.body;
 
   try {
     await signUpSchema.validate(req.body);
@@ -44,12 +37,12 @@ export const signUp = async (req: Request, res: Response) => {
       message: "Usuário criado com sucesso",
     });
   } catch (error) {
-    return res.status(500).json({ message: getErrorMessage(error) });
+    return res.status(500).json({ message: error.message });
   }
 };
 
-export const signIn = async (req: Request, res: Response) => {
-  const { username, password }: SignIn = req.body;
+const signIn = async (req, res) => {
+  const { username, password } = req.body;
 
   try {
     await loginSchema.validate(req.body);
@@ -78,10 +71,16 @@ export const signIn = async (req: Request, res: Response) => {
   }
 };
 
-export const userData = async (req: RequestWithUser, res: Response) => {
+const userData = async (req, res) => {
   try {
     return res.status(200).json(req.user);
   } catch (error) {
-    return res.status(500).json({ message: getErrorMessage(error) });
+    return res.status(500).json({ message: error.message });
   }
 };
+
+module.exports = {
+  signIn,
+  signUp,
+  userData
+}
