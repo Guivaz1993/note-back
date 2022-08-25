@@ -10,7 +10,8 @@ route.get("/", async (req, res) => {
 route.post("/signup", signUp);
 route.post("/signin", signIn);
 
-route.use(userTokenVerify);
+route.use("", userTokenVerify);
+
 route.get("/teste", async (req, res) => {
   res.json("ok");
 });

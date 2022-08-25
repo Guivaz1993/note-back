@@ -1,7 +1,7 @@
 import * as bcrypt from "bcrypt";
 import { Request, Response } from "express";
 import * as jwt from "jsonwebtoken";
-import { SignIn, SignUp } from "../interface/users.interface";
+import { SignIn, SignUp, RequestWithUser } from "../interface/users.interface";
 import * as modelUsers from "../models/users";
 import { signUpSchema, loginSchema } from "../validations/users";
 
@@ -78,10 +78,9 @@ export const signIn = async (req: Request, res: Response) => {
   }
 };
 
-export const userData = async (req: Request, res: Response) => {
-  const userData: SignIn = req.token;
+export const userData = async (req: RequestWithUser, res: Response) => {
   try {
-    return res.status(200).json(req);
+    return res.status(200).json(req.user);
   } catch (error) {
     return res.status(500).json({ message: getErrorMessage(error) });
   }

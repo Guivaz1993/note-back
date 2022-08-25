@@ -1,17 +1,13 @@
 import * as jwt from "jsonwebtoken";
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction, response } from "express";
 import { userExists } from "../models/users";
-import { Token } from "../interface/users.interface";
+import { RequestWithUser, Token } from "../interface/users.interface";
 import { string } from "yup";
 import { rejects } from "assert";
 import { resolve } from "path";
 
-export interface CustomRequest extends Request {
-  token: string | jwt.JwtPayload;
-}
-
 export const userTokenVerify = async (
-  req: Request,
+  req: RequestWithUser,
   res: Response,
   next: NextFunction
 ) => {
@@ -21,20 +17,16 @@ export const userTokenVerify = async (
   }
 
   try {
-    const decode = jwt.verify(token, "orangeNote");
-    console.log(decode);
-    (req as CustomRequest).token = decode;
+    const response = jwt.verify(token, "orangeNote") as Token;
 
-    // console.log(decode);
+    const userData = await userExists(response.id);
+    if (!userData) {
+      return res.status(404).json({ message: "Usuário não encontrado" });
+    }
 
-    // const userData = await userExists(id);
-    // if (!userData) {
-    //   return res.status(404).json({ message: "Usuário não encontrado" });
-    // }
+    const { password, ...user } = userData;
 
-    // const { password, ...user } = userData;
-
-    // req.user = user;
+    req.user = user;
 
     next();
   } catch (error) {}

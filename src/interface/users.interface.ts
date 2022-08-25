@@ -1,3 +1,5 @@
+import { Request } from "express";
+
 export interface SignUp {
   name: string;
   email: string;
@@ -12,6 +14,15 @@ export interface SignIn {
 
 export interface Token {
   id: string;
-  iat: string;
-  exp: string;
+}
+
+export interface User {
+  name: string;
+  email: string;
+  username: string;
+  password: string;
+}
+
+export interface RequestWithUser extends Request {
+  user: User;
 }
