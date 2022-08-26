@@ -1,13 +1,13 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const modelUsers = require("../models/users");
-const { signUpSchema, loginSchema } = require("../validations/users");
+const schemaUsers = require("../validations/users");
 
 const signUp = async (req, res) => {
   const { name, email, username, password } = req.body;
 
   try {
-    await signUpSchema.validate(req.body);
+    await schemaUsers.signUpSchema.validate(req.body);
     const usernameExists = await modelUsers.usernameExists(username);
     if (usernameExists) {
       return res.status(400).json({ message: "Nome de usuário já utilizado" });
@@ -45,7 +45,7 @@ const signIn = async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    await loginSchema.validate(req.body);
+    await schemaUsers.loginSchema.validate(req.body);
 
     const user = await modelUsers.usernameExists(username);
 
