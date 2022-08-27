@@ -14,7 +14,7 @@ const listAreas = async (req, res) => {
 
 const listTopics = async (req, res) => {
   try {
-    const list = await modelInfos.listTopic()
+    const list = await modelInfos.listTopics()
     if (list.length === 0) {
       return res.status(400).json({ message: "Nenhum tópico encontrado." })
     }
