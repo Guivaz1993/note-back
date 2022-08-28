@@ -5,9 +5,29 @@ const listAreas = async () => {
   return list
 }
 
+const getAreaById = async (id) => {
+  const iten = await knex("areas").where({ id }).returning("*")
+  return iten
+}
+
 const listTopics = async () => {
   const list = await knex("topics").returning("*");
   return list
+}
+
+const getTopic = async (topic) => {
+  const iten = await knex("topics").where({ topic }).returning("*")
+  return iten
+}
+
+const getTopicById = async (id) => {
+  const iten = await knex("topics").where({ id }).returning("*")
+  return iten
+}
+
+const createTopic = async (topic) => {
+  const newTopic = await knex("topics").insert({ topic }).returning("*")
+  return newTopic
 }
 
 const listUserTopics = async (id) => {
@@ -31,8 +51,28 @@ const listUserTopics = async (id) => {
   return list
 }
 
+const getStudy = async (area_id, topic_id, user_id) => {
+  const study = await knex("user_topics")
+    .where({ area_id, topic_id, user_id })
+    .first()
+  return study
+}
+
+const createStudy = async (area_id, topic_id, user_id) => {
+  const study = await knex("user_topics")
+    .insert({ area_id, topic_id, user_id })
+    .returning("*")
+  return study
+}
+
 module.exports = {
   listAreas,
+  getAreaById,
   listTopics,
-  listUserTopics
+  getTopic,
+  getTopicById,
+  createTopic,
+  listUserTopics,
+  getStudy,
+  createStudy
 }
