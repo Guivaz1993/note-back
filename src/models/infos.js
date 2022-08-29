@@ -65,6 +65,59 @@ const createStudy = async (area_id, topic_id, user_id) => {
   return study
 }
 
+const listArticlesStudy = async (usertopics_id) => {
+  const list = await knex("articles")
+    .where({ usertopics_id })
+    .returning("*")
+
+  return list
+}
+
+const getArticleLink = async (link, usertopics_id, user_id) => {
+  const article = await knex("articles")
+    .where({ link, user_id, usertopics_id })
+    .first()
+
+  return article
+}
+
+const createArticle = async (article, description, link, done, topic_id, usertopics_id, user_id) => {
+  article = article.trim();
+  description = description.trim()
+
+  const newArticle = await knex("articles")
+    .insert({ article, description, link, done, topic_id, usertopics_id, user_id })
+    .returning("*")
+  console.log(newArticle)
+  return newArticle
+}
+
+const listVideosStudy = async (usertopics_id) => {
+  const list = await knex("videos")
+    .where({ usertopics_id })
+    .returning("*")
+
+  return list
+}
+
+const getVideoLink = async (link, usertopics_id, user_id) => {
+  const article = await knex("videos")
+    .where({ link, user_id, usertopics_id })
+    .first()
+
+  return article
+}
+
+const createVideo = async (video, description, link, done, topic_id, usertopics_id, user_id) => {
+  video = video.trim();
+  description = description.trim()
+
+  const newVideo = await knex("videos")
+    .insert({ video, description, link, done, topic_id, usertopics_id, user_id })
+    .returning("*")
+  return newVideo
+}
+
 module.exports = {
   listAreas,
   getAreaById,
@@ -74,5 +127,11 @@ module.exports = {
   createTopic,
   listUserTopics,
   getStudy,
-  createStudy
+  createStudy,
+  listArticlesStudy,
+  getArticleLink,
+  createArticle,
+  listVideosStudy,
+  getVideoLink,
+  createVideo
 }

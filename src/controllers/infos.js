@@ -1,5 +1,5 @@
 const modelInfos = require("../models/infos");
-const { newTopicSchema, newStudySchema } = require("../validations/infos");
+const { newTopicSchema, newStudySchema, newArticleSchema, newVideoSchema } = require("../validations/infos");
 
 const listAreas = async (req, res) => {
   try {
@@ -86,8 +86,6 @@ const createStudy = async (req, res) => {
 
     const studyExists = await modelInfos.getStudy(area_id, topic_id, id)
 
-    console.log(studyExists)
-
     if (studyExists) {
       return res.status(400).json({ message: "Plano de estudo já cadastrado" })
     }
@@ -104,10 +102,92 @@ const createStudy = async (req, res) => {
   }
 }
 
+const listArticlesStudy = async (req, res) => {
+  const { usertopics_id } = req.params
+
+  try {
+    const list = await modelInfos.listArticlesStudy(usertopics_id)
+    if (list.length === 0) {
+      return res.status(400).json({ message: "Nenhum texto encontrado." })
+    }
+
+    return res.status(200).json(list)
+  } catch (error) {
+    return res.status(500).json({ message: error.message })
+  }
+}
+
+const createArticle = async (req, res) => {
+  const { id } = req.user
+  const { article, description, link, done, topic_id, usertopics_id } = req.body
+
+  try {
+    await newArticleSchema.validate(req.body)
+
+    const articleExists = await modelInfos.getArticleLink(link, usertopics_id, id)
+
+    if (articleExists) {
+      return res.status(400).json({ message: "Esse texto já está cadastrado." })
+    }
+
+    const newArticle = await modelInfos.createArticle(article, description, link, done, topic_id, usertopics_id, id)
+    if (newArticle.length === 0) {
+      return res.status(400).json({ message: "Não foi possível adicionar o texto." })
+    }
+
+    return res.status(200).json({ message: "Texto adicionado com sucesso." })
+  } catch (error) {
+    return res.status(500).json({ message: error.message })
+  }
+}
+
+const listVideosStudy = async (req, res) => {
+  const { usertopics_id } = req.params
+
+  try {
+    const list = await modelInfos.listVideosStudy(usertopics_id)
+    if (list.length === 0) {
+      return res.status(400).json({ message: "Nenhum vídeo encontrado." })
+    }
+
+    return res.status(200).json(list)
+  } catch (error) {
+    return res.status(500).json({ message: error.message })
+  }
+}
+
+const createVideo = async (req, res) => {
+  const { id } = req.user
+  const { video, description, link, done, topic_id, usertopics_id } = req.body
+
+  try {
+    await newVideoSchema.validate(req.body)
+
+    const videoExists = await modelInfos.getVideoLink(link, usertopics_id, id)
+
+    if (videoExists) {
+      return res.status(400).json({ message: "Esse vídeo já está cadastrado." })
+    }
+
+    const newVideo = await modelInfos.createVideo(video, description, link, done, topic_id, usertopics_id, id)
+    if (newVideo.length === 0) {
+      return res.status(400).json({ message: "Não foi possível adicionar o vídeo." })
+    }
+
+    return res.status(200).json({ message: "Vídeo adicionado com sucesso." })
+  } catch (error) {
+    return res.status(500).json({ message: error.message })
+  }
+}
+
 module.exports = {
   listAreas,
   listTopics,
   createTopic,
   listUserTopics,
-  createStudy
+  createStudy,
+  listArticlesStudy,
+  createArticle,
+  listVideosStudy,
+  createVideo
 }
