@@ -1,14 +1,34 @@
 const modelLesson = require("../models/lessons")
+const schemaLesson = require("../validations/lessons")
+
+const listLessons = async (req, res) => {
+  const { course_id } = req.params;
+
+  try {
+    const list = await modelLesson.listLesson(course_id)
+
+    if (!list) {
+      return res.status(400).json({ message: "Desculpe, não encontramos aulas cadastradas nesse curso." })
+    }
+
+    return res.status(200).json(list)
+  } catch (error) {
+    return res.status(500).json({ message: error.message })
+  }
+}
 
 const createLesson = async (req, res) => {
   const { id } = req.user
   const { lesson, done, course_id } = req.body
 
   try {
-    //validação
+    await schemaLesson.createLessonSchema.validate(req.body)
 
-    //verificação
+    const lessonExists = await modelLesson.nameLessonExist(lesson, course_id)
 
+    if (lessonExists) {
+      return res.status(400).json({ message: "Acreditamos que essa aula já está cadastrada." })
+    }
 
     const newLesson = await modelLesson.createLesson(lesson, done, course_id, id)
 
@@ -23,15 +43,19 @@ const createLesson = async (req, res) => {
 }
 
 const updateLesson = async (req, res) => {
-  const { lesson, done } = req.body
+  const { lesson, done, course_id } = req.body
   const { id } = req.params
 
-  console.log(id)
-
   try {
-    //validação
+    await schemaLesson.updateLessonSchema.validate(req.body)
 
-    //verificação
+    if (lesson.trim()) {
+      const lessonExists = await modelLesson.nameLessonExist(lesson, course_id, id)
+
+      if (lessonExists) {
+        return res.status(400).json({ message: "Acreditamos que essa aula já está cadastrada." })
+      }
+    }
 
     const updateLesson = await modelLesson.updateLesson(id, lesson, done)
 
@@ -62,6 +86,7 @@ const getLesson = async (req, res) => {
 }
 
 module.exports = {
+  listLessons,
   createLesson,
   updateLesson,
   getLesson

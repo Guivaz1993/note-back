@@ -1,11 +1,11 @@
 const express = require("express");
 const { listAreas, listTopics, listUserTopics, createTopic, createStudy } = require("../controllers/infos");
-const { listArticlesStudy, createArticle } = require("../controllers/articles");
-const { createVideo, listVideosStudy } = require("../controllers/videos");
+const { listArticlesStudy, createArticle, getArticle, updateArticle } = require("../controllers/articles");
+const { createVideo, listVideosStudy, getVideo, updateVideo } = require("../controllers/videos");
 const { createCourse, listCourseStudy } = require("../controllers/courses")
 const { signIn, signUp, userData } = require("../controllers/users");
 const userTokenVerify = require("../middlewares/userTokenVerfify");
-const { getLesson, createLesson, updateLesson } = require("../controllers/lessons");
+const { getLesson, createLesson, updateLesson, listLessons } = require("../controllers/lessons");
 
 const route = express()
 
@@ -22,16 +22,21 @@ route.post("/topics", createTopic)
 route.get("/userTopics", listUserTopics);
 route.post("/userTopics", createStudy);
 
-route.get("/articlesstudy/:usertopics_id", listArticlesStudy);
-route.post("/articlestudy", createArticle);
+route.get("/articles/:usertopics_id", listArticlesStudy);
+route.get("/article/detail/:id", getArticle);
+route.post("/article", createArticle);
+route.patch("/article/:id", updateArticle);
 
-route.get("/videosstudy/:usertopics_id", listVideosStudy);
-route.post("/videostudy", createVideo);
+route.get("/videos/:usertopics_id", listVideosStudy);
+route.get("/video/detail/:id", getVideo);
+route.post("/videos", createVideo);
+route.patch("/videos/:id", updateVideo)
 
 route.get("/coursesstudy/:usertopics_id", listCourseStudy);
 route.post("/coursestudy", createCourse);
 
-route.get("/lessons/:id", getLesson)
+route.get("/lessons/:course_id", listLessons)
+route.get("/lesson/:id", getLesson)
 route.post("/lessons", createLesson)
 route.patch("/lessons/:id", updateLesson)
 

@@ -8,12 +8,33 @@ const listVideosStudy = async (usertopics_id) => {
   return list
 }
 
-const getVideoLink = async (link, usertopics_id, user_id) => {
-  const video = await knex("videos")
-    .where({ link, user_id, usertopics_id })
-    .first()
+const videoExists = async (video, link, usertopics_id, user_id, id) => {
+  if (!id) {
+    const iten = await knex("videos")
+      .where({ link, user_id, usertopics_id })
+      .orWhere({ video, user_id, usertopics_id })
+      .first()
 
-  return video
+    return iten
+  }
+
+  if (link) {
+    const iten = await knex("videos")
+      .where({ link, user_id, usertopics_id })
+      .whereNot({ id })
+      .first()
+
+    return iten
+  }
+
+  if (video) {
+    const iten = await knex("videos")
+      .where({ video, user_id, usertopics_id })
+      .whereNot({ id })
+      .first()
+
+    return iten
+  }
 }
 
 const createVideo = async (video, description, link, done, topic_id, usertopics_id, user_id) => {
@@ -35,8 +56,11 @@ const getVideoById = async (id) => {
 }
 
 const updateVideo = async (id, video, description, link, done) => {
+  video ? video = video.trim() : ""
+  description ? description = description.trim() : "";
   const created_at = new Date()
-  const iten = await knex("lessons_course")
+
+  const iten = await knex("videos")
     .update({ video, description, link, done, created_at })
     .where({ id })
     .returning("*")
@@ -45,7 +69,7 @@ const updateVideo = async (id, video, description, link, done) => {
 
 module.exports = {
   listVideosStudy,
-  getVideoLink,
+  videoExists,
   createVideo,
   getVideoById,
   updateVideo
