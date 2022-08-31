@@ -32,21 +32,17 @@ const createTopic = async (topic) => {
 
 const listUserTopics = async (id) => {
   const list = await knex("user_topics")
-    .select("user_topics.id as id",
-      knex.raw("(SELECT area FROM areas WHERE areas.id=user_topics.area_id)"),
-      knex.raw("(SELECT topic FROM topics WHERE topics.id=user_topics.topic_id)"),
+    .select("user_topics.id as id", "areas.area", "topics.topic",
+      knex.raw("(SELECT COUNT(*) FROM articles  WHERE articles.usertopics_id = user_topics.id) AS textos"),
       knex.raw("(SELECT COUNT(*) FROM articles WHERE articles.done=true AND articles.usertopics_id = user_topics.id) AS textos_finalizados"),
+      knex.raw("(SELECT COUNT(*) FROM videos  WHERE videos.usertopics_id = user_topics.id) AS videos"),
       knex.raw(" (SELECT COUNT(*) FROM videos WHERE videos.done=true AND videos.usertopics_id = user_topics.id) AS videos_finalizadas"),
+      knex.raw("(SELECT COUNT(*) FROM courses  WHERE courses.usertopics_id = user_topics.id) AS cursos"),
       knex.raw("(SELECT COUNT(*) FROM courses  WHERE courses.done=true AND courses.usertopics_id = user_topics.id) AS cursos_finalizados")
     )
-    .count("articles.id", { as: "Textos" })
-    .count("videos.id", { as: "Vídeos" })
-    .count("courses.id", { as: "Cursos" })
+    .join("areas", "areas.id", "user_topics.area_id")
+    .join("topics", "topics.id", "user_topics.topic_id")
     .where({ "user_topics.user_id": id })
-    .leftJoin("courses", "courses.usertopics_id", "=", "user_topics.id")
-    .leftJoin("videos", "videos.usertopics_id", "=", "user_topics.id")
-    .leftJoin("articles", "articles.usertopics_id", "=", "user_topics.id")
-    .groupBy("user_topics.id")
     .returning("*");
   return list
 }
@@ -65,92 +61,6 @@ const createStudy = async (area_id, topic_id, user_id) => {
   return study
 }
 
-const listArticlesStudy = async (usertopics_id) => {
-  const list = await knex("articles")
-    .where({ usertopics_id })
-    .returning("*")
-
-  return list
-}
-
-const getArticleLink = async (link, usertopics_id, user_id) => {
-  const article = await knex("articles")
-    .where({ link, user_id, usertopics_id })
-    .first()
-
-  return article
-}
-
-const createArticle = async (article, description, link, done, topic_id, usertopics_id, user_id) => {
-  article = article.trim();
-  description = description.trim()
-
-  const newArticle = await knex("articles")
-    .insert({ article, description, link, done, topic_id, usertopics_id, user_id })
-    .returning("*")
-  console.log(newArticle)
-  return newArticle
-}
-
-const listVideosStudy = async (usertopics_id) => {
-  const list = await knex("videos")
-    .where({ usertopics_id })
-    .returning("*")
-
-  return list
-}
-
-const getVideoLink = async (link, usertopics_id, user_id) => {
-  const video = await knex("videos")
-    .where({ link, user_id, usertopics_id })
-    .first()
-
-  return video
-}
-
-const createVideo = async (video, description, link, done, topic_id, usertopics_id, user_id) => {
-  video = video.trim();
-  description = description.trim()
-
-  const newVideo = await knex("videos")
-    .insert({ video, description, link, done, topic_id, usertopics_id, user_id })
-    .returning("*")
-  return newVideo
-}
-
-const listCoursesStudy = async (usertopics_id) => {
-  const list = await knex("courses")
-    .select("courses.id", "courses.course", "courses.description", knex.raw("(SELECT COUNT(lessons_course.id) FROM lessons_course     WHERE lessons_course.course_id=courses.id     AND lessons_course.done=TRUE) AS lessons_done"))
-    .count("lessons_course.id", { as: "Lessons" })
-    .leftJoin("lessons_course", "lessons_course.course_id", "courses.id")
-    .where({ usertopics_id })
-    .groupBy("courses.id")
-    .returning("*")
-
-  return list
-}
-
-const getCourse = async (course, link, usertopics_id, user_id) => {
-  const iten = await knex("courses")
-    .where({ user_id, usertopics_id })
-    .andWhere({ course })
-    .orWhere({ link })
-    .first()
-
-  return iten
-}
-
-const createCourse = async (course, description, link, done, topic_id, usertopics_id, user_id) => {
-  course = course.trim();
-  description = description.trim()
-
-  const newCourse = await knex("courses")
-    .insert({ course, description, link, done, topic_id, usertopics_id, user_id })
-    .returning("*")
-  return newCourse
-}
-
-
 module.exports = {
   listAreas,
   getAreaById,
@@ -160,14 +70,5 @@ module.exports = {
   createTopic,
   listUserTopics,
   getStudy,
-  createStudy,
-  listArticlesStudy,
-  getArticleLink,
-  createArticle,
-  listVideosStudy,
-  getVideoLink,
-  createVideo,
-  listCoursesStudy,
-  getCourse,
-  createCourse
+  createStudy
 }

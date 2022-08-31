@@ -7,10 +7,11 @@ const createLesson = async (lesson, done, course_id, user_id) => {
   return iten
 }
 
-const updateLesson = async (lesson, done) => {
-  const update_at = new Date()
+const updateLesson = async (id, lesson, done) => {
+  const updated_at = new Date()
   const iten = await knex("lessons_course")
-    .update({ lesson, dome, update_at })
+    .update({ lesson, done, updated_at })
+    .where({ id })
     .returning("*")
   return iten
 }

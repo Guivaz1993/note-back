@@ -5,6 +5,11 @@ const createLesson = async (req, res) => {
   const { lesson, done, course_id } = req.body
 
   try {
+    //validação
+
+    //verificação
+
+
     const newLesson = await modelLesson.createLesson(lesson, done, course_id, id)
 
     if (newLesson.length === 0) {
@@ -19,9 +24,16 @@ const createLesson = async (req, res) => {
 
 const updateLesson = async (req, res) => {
   const { lesson, done } = req.body
+  const { id } = req.params
+
+  console.log(id)
 
   try {
-    const updateLesson = await modelLesson.updateLesson(lesson, done)
+    //validação
+
+    //verificação
+
+    const updateLesson = await modelLesson.updateLesson(id, lesson, done)
 
     if (updateLesson.length === 0) {
       return res.status(400).json({ message: "Desculpe não conseguimos atualizar essa aula, tente novamente mais tarde." })
