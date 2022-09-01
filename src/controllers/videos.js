@@ -61,10 +61,16 @@ const updateVideo = async (req, res) => {
   const { video, description, link, done, usertopics_id } = req.body
   const { id } = req.params
 
+  if (((!video || video && !video.trim()) &&
+    (!description || description && !description.trim()) &&
+    !link && done === undefined) || !usertopics_id) {
+    return res.status(400).json({ message: "Desculpe, é necessário passar alguma informação válida para ser alterado" })
+  }
+
   try {
     await updateVideoSchema.validate(req.body)
 
-    if (video) {
+    if (video && video.trim()) {
       const videoExists = await modelVideos.videoExists(video, "", usertopics_id, user_id, id)
 
       if (videoExists) {

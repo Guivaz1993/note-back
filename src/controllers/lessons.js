@@ -49,7 +49,7 @@ const updateLesson = async (req, res) => {
   try {
     await schemaLesson.updateLessonSchema.validate(req.body)
 
-    if (lesson.trim()) {
+    if (lesson && lesson.trim()) {
       const lessonExists = await modelLesson.nameLessonExist(lesson, course_id, id)
 
       if (lessonExists) {

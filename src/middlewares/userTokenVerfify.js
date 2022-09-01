@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
 const { userExists } = require("../models/users");
 
+const secretToken = process.env.TOKEN_SECRET
+
 const userTokenVerify = async (
   req,
   res,
@@ -12,7 +14,7 @@ const userTokenVerify = async (
   }
 
   try {
-    const responseToken = jwt.verify(token, "orangeNote");
+    const responseToken = jwt.verify(token, secretToken);
 
     const userData = await userExists(responseToken.id);
     if (!userData) {

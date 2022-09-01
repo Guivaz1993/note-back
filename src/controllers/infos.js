@@ -1,11 +1,35 @@
 const modelInfos = require("../models/infos");
-const { newTopicSchema, newStudySchema } = require("../validations/infos");
+const { newTopicSchema, newStudySchema, newStudyTopicSchema } = require("../validations/infos");
 
-const listAreas = async (req, res) => {
+const createStudy = async (req, res) => {
+  const { id } = req.user
+  const { study } = req.body
   try {
-    const list = await modelInfos.listAreas()
+    await newStudySchema.validate(req.body)
+
+    const studyExists = await modelInfos.getStudy(study)
+
+    if (studyExists) {
+      return res.status(400).json({ message: "Acreditamos que esse plano de estudo já existe no nosso banco de dados" })
+    }
+
+    const newStudy = await modelInfos.createStudy(study, id)
+
+    if (newStudy.length === 0) {
+      return res.status(400).json({ message: "Desculpe não conseguimos cadastrar esse novo curso" })
+    }
+
+    return res.status(201).json({ message: "Novo plano de estudo cadastrado com sucesso" })
+  } catch (error) {
+    return res.status(500).json({ message: error.message })
+  }
+}
+
+const listStudies = async (req, res) => {
+  try {
+    const list = await modelInfos.listStudies()
     if (list.length === 0) {
-      return res.status(400).json({ message: "Nenhuma área foi encontrada." })
+      return res.status(400).json({ message: "Nenhuma plano de estudo foi encontrada." })
     }
     return res.status(200).json(list)
   } catch (error) {
@@ -27,14 +51,15 @@ const listTopics = async (req, res) => {
 }
 
 const createTopic = async (req, res) => {
+  const { id } = req.user
   const { topic } = req.body
 
   try {
     await newTopicSchema.validate(req.body)
 
-    const topicExists = await modelInfos.getTopic(topic)
+    const topicExists = await modelInfos.getTopic(topic, id)
 
-    if (topicExists.length > 0) {
+    if (topicExists) {
       return res.status(400).json({ message: "Esse tópico já existe" })
     }
 
@@ -65,47 +90,48 @@ const listUserTopics = async (req, res) => {
   }
 }
 
-const createStudy = async (req, res) => {
+const createStudyTopic = async (req, res) => {
   const { id } = req.user
-  const { area_id, topic_id } = req.body
+  const { study_id, topic_id } = req.body
 
   try {
-    await newStudySchema.validate(req.body)
+    await newStudyTopicSchema.validate(req.body)
 
-    const areaExists = await modelInfos.getAreaById(area_id)
+    const studyExists = await modelInfos.getStudyById(study_id)
 
-    if (areaExists.length === 0) {
-      return res.status(400).json({ message: "Área não encontrada" })
+    if (!studyExists) {
+      return res.status(400).json({ message: "Nenhum plano de estudo encontrado" })
     }
 
     const topicExists = await modelInfos.getTopicById(topic_id)
 
-    if (topicExists.length === 0) {
+    if (!topicExists) {
       return res.status(400).json({ message: "Tópico não encontrado" })
     }
 
-    const studyExists = await modelInfos.getStudy(area_id, topic_id, id)
+    const studyTopicExists = await modelInfos.getStudyTopic(study_id, topic_id, id)
 
-    if (studyExists) {
-      return res.status(400).json({ message: "Plano de estudo já cadastrado" })
+    if (studyTopicExists) {
+      return res.status(400).json({ message: "Plano de estudo já contem esse tópico" })
     }
 
-    const newStudy = await modelInfos.createStudy(area_id, topic_id, id)
+    const newStudyTopic = await modelInfos.createStudyTopic(study_id, topic_id, id)
 
-    if (newStudy.length === 0) {
-      return res.status(400).json({ message: "Não foi possível criar o seu novo plano de estudo" })
+    if (newStudyTopic.length === 0) {
+      return res.status(400).json({ message: "Não foi possível adicionar esse tópico ao seu plano de estudo" })
     }
 
-    return res.status(201).json({ message: "Plano de estudo criado com sucesso" })
+    return res.status(201).json({ message: "Tópico adicionado ao plano de estudo com sucesso." })
   } catch (error) {
     return res.status(500).json({ message: error.message })
   }
 }
 
 module.exports = {
-  listAreas,
+  createStudy,
+  listStudies,
   listTopics,
   createTopic,
   listUserTopics,
-  createStudy
+  createStudyTopic
 }

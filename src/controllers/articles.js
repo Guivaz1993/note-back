@@ -61,6 +61,12 @@ const updateArticle = async (req, res) => {
   const { article, description, link, done, usertopics_id } = req.body
   const { id } = req.params
 
+  if (((!article || article && !article.trim()) &&
+    (!description || description && !description.trim()) &&
+    !link && done === undefined) || !usertopics_id) {
+    return res.status(400).json({ message: "Desculpe, é necessário passar alguma informação válida para ser alterado" })
+  }
+
   try {
     await updateArticleSchema.validate(req.body)
 

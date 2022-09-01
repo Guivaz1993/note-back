@@ -1,12 +1,22 @@
 const knex = require("../server/connection")
 
-const listAreas = async () => {
-  const list = await knex("areas").returning("*");
+const createStudy = async (study, user_id) => {
+  const iten = await knex("studies").insert({ study, user_id }).returning("*")
+  return iten
+}
+
+const listStudies = async () => {
+  const list = await knex("studies").returning("*");
   return list
 }
 
-const getAreaById = async (id) => {
-  const iten = await knex("areas").where({ id }).returning("*")
+const getStudy = async (study) => {
+  const iten = await knex("studies").where({ study }).first()
+  return iten
+}
+
+const getStudyById = async (id) => {
+  const iten = await knex("studies").where({ id }).first()
   return iten
 }
 
@@ -16,23 +26,23 @@ const listTopics = async () => {
 }
 
 const getTopic = async (topic) => {
-  const iten = await knex("topics").where({ topic }).returning("*")
+  const iten = await knex("topics").where({ topic }).first()
   return iten
 }
 
 const getTopicById = async (id) => {
-  const iten = await knex("topics").where({ id }).returning("*")
+  const iten = await knex("topics").where({ id }).first()
   return iten
 }
 
-const createTopic = async (topic) => {
-  const newTopic = await knex("topics").insert({ topic }).returning("*")
+const createTopic = async (topic, user_id) => {
+  const newTopic = await knex("topics").insert({ topic, user_id }).returning("*")
   return newTopic
 }
 
 const listUserTopics = async (id) => {
   const list = await knex("user_topics")
-    .select("user_topics.id as id", "areas.area", "topics.topic",
+    .select("user_topics.id as id", "studies.study", "topics.topic",
       knex.raw("(SELECT COUNT(*) FROM articles  WHERE articles.usertopics_id = user_topics.id) AS textos"),
       knex.raw("(SELECT COUNT(*) FROM articles WHERE articles.done=true AND articles.usertopics_id = user_topics.id) AS textos_finalizados"),
       knex.raw("(SELECT COUNT(*) FROM videos  WHERE videos.usertopics_id = user_topics.id) AS videos"),
@@ -40,35 +50,37 @@ const listUserTopics = async (id) => {
       knex.raw("(SELECT COUNT(*) FROM courses  WHERE courses.usertopics_id = user_topics.id) AS cursos"),
       knex.raw("(SELECT COUNT(*) FROM courses  WHERE courses.done=true AND courses.usertopics_id = user_topics.id) AS cursos_finalizados")
     )
-    .join("areas", "areas.id", "user_topics.area_id")
+    .join("studies", "studies.id", "user_topics.study_id")
     .join("topics", "topics.id", "user_topics.topic_id")
     .where({ "user_topics.user_id": id })
     .returning("*");
   return list
 }
 
-const getStudy = async (area_id, topic_id, user_id) => {
+const getStudyTopic = async (study_id, topic_id, user_id) => {
   const study = await knex("user_topics")
-    .where({ area_id, topic_id, user_id })
+    .where({ study_id, topic_id, user_id })
     .first()
   return study
 }
 
-const createStudy = async (area_id, topic_id, user_id) => {
+const createStudyTopic = async (study_id, topic_id, user_id) => {
   const study = await knex("user_topics")
-    .insert({ area_id, topic_id, user_id })
+    .insert({ study_id, topic_id, user_id })
     .returning("*")
   return study
 }
 
 module.exports = {
-  listAreas,
-  getAreaById,
+  createStudy,
+  listStudies,
+  getStudyById,
+  getStudy,
   listTopics,
   getTopic,
   getTopicById,
   createTopic,
   listUserTopics,
-  getStudy,
-  createStudy
+  getStudyTopic,
+  createStudyTopic
 }
