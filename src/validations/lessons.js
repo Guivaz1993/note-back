@@ -7,7 +7,7 @@ const createLessonSchema = yup.object().shape({
 });
 
 const updateLessonSchema = yup.object().shape({
-  lesson: yup.string().trim().required(),
+  lesson: yup.string().trim(),
   done: yup.boolean()
 })
 

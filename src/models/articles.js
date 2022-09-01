@@ -55,7 +55,11 @@ const getArticleById = async (id) => {
 }
 
 const updateArticle = async (id, article, description, link, done) => {
-  article ? article = article.trim() : "";
+  if (article.trim()) {
+    article = article.trim()
+  } else {
+    article = undefined
+  }
   description ? description = description.trim() : "";
   const date = new Date()
 

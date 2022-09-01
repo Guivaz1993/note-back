@@ -12,11 +12,37 @@ const listCoursesStudy = async (usertopics_id) => {
   return list
 }
 
-const getCourse = async (course, link, usertopics_id, user_id) => {
+const courseExists = async (course, link, usertopics_id, user_id, id) => {
+  course = course.trim()
+  if (!id) {
+    const iten = await knex("courses")
+      .where({ course, user_id, usertopics_id })
+      .orWhere({ link, user_id, usertopics_id })
+      .first()
+
+    return iten
+  }
+  if (link) {
+    const iten = await knex("courses")
+      .where({ link, user_id, usertopics_id })
+      .whereNot({ id })
+      .first()
+
+    return iten
+  }
+  if (course) {
+    const iten = await knex("courses")
+      .where({ course, user_id, usertopics_id })
+      .whereNot({ id })
+      .first()
+
+    return iten
+  }
+}
+
+const getCourse = async (id) => {
   const iten = await knex("courses")
-    .where({ user_id, usertopics_id })
-    .andWhere({ course })
-    .orWhere({ link })
+    .where({ id })
     .first()
 
   return iten
@@ -32,8 +58,27 @@ const createCourse = async (course, description, link, done, topic_id, usertopic
   return newCourse
 }
 
+const updateCouse = async (id, course, description, link, done) => {
+  if (course && course.trim()) {
+    course = course.trim()
+  } else {
+    course = undefined
+  }
+  description ? description = description.trim() : "";
+  // const date = new Date()
+
+  const iten = knex("courses")
+    .update({ course, description, link, done, })
+    // created_at: date
+    .where({ id })
+    .returning("*")
+  return iten
+}
+
 module.exports = {
   listCoursesStudy,
+  courseExists,
   getCourse,
-  createCourse
+  createCourse,
+  updateCouse
 }

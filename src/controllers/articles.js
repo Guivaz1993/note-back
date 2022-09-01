@@ -34,7 +34,7 @@ const createArticle = async (req, res) => {
       return res.status(400).json({ message: "Não foi possível adicionar o texto." })
     }
 
-    return res.status(200).json({ message: "Texto adicionado com sucesso." })
+    return res.status(201).json({ message: "Texto adicionado com sucesso." })
   } catch (error) {
     return res.status(500).json({ message: error.message })
   }
@@ -85,7 +85,7 @@ const updateArticle = async (req, res) => {
       return res.status(400).json({ message: "Desculpe não conseguimos atualizar esse texto, tente novamente mais tarde." })
     }
 
-    return res.status(201).json({ message: "Seu texto foi atualizado com sucesso" })
+    return res.status(200).json({ message: "Seu texto foi atualizado com sucesso" })
   } catch (error) {
     return res.status(500).json({ message: error.message })
   }

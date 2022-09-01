@@ -63,7 +63,7 @@ const updateLesson = async (req, res) => {
       return res.status(400).json({ message: "Desculpe não conseguimos atualizar essa aula, tente novamente mais tarde." })
     }
 
-    return res.status(201).json({ message: "Sua aula foi atualizada com sucesso" })
+    return res.status(200).json({ message: "Sua aula foi atualizada com sucesso" })
   } catch (error) {
     return res.status(500).json({ message: error.message })
   }

@@ -56,7 +56,11 @@ const getVideoById = async (id) => {
 }
 
 const updateVideo = async (id, video, description, link, done) => {
-  video ? video = video.trim() : ""
+  if (video.trim()) {
+    video = video.trim()
+  } else {
+    video = undefined
+  }
   description ? description = description.trim() : "";
   const created_at = new Date()
 

@@ -34,7 +34,7 @@ const createVideo = async (req, res) => {
       return res.status(400).json({ message: "Não foi possível adicionar o vídeo." })
     }
 
-    return res.status(200).json({ message: "Vídeo adicionado com sucesso." })
+    return res.status(201).json({ message: "Vídeo adicionado com sucesso." })
   } catch (error) {
     return res.status(500).json({ message: error.message })
   }
@@ -86,7 +86,7 @@ const updateVideo = async (req, res) => {
       return res.status(400).json({ message: "Desculpe não conseguimos atualizar esse vídeo, tente novamente mais tarde." })
     }
 
-    return res.status(201).json({ message: "Seu vídeo foi atualizado com sucesso" })
+    return res.status(200).json({ message: "Seu vídeo foi atualizado com sucesso" })
   } catch (error) {
     return res.status(500).json({ message: error.message })
   }

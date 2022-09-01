@@ -2,7 +2,7 @@ const express = require("express");
 const { listAreas, listTopics, listUserTopics, createTopic, createStudy } = require("../controllers/infos");
 const { listArticlesStudy, createArticle, getArticle, updateArticle } = require("../controllers/articles");
 const { createVideo, listVideosStudy, getVideo, updateVideo } = require("../controllers/videos");
-const { createCourse, listCourseStudy } = require("../controllers/courses")
+const { createCourse, listCourseStudy, getCourse, updateCourse } = require("../controllers/courses")
 const { signIn, signUp, userData } = require("../controllers/users");
 const userTokenVerify = require("../middlewares/userTokenVerfify");
 const { getLesson, createLesson, updateLesson, listLessons } = require("../controllers/lessons");
@@ -32,8 +32,10 @@ route.get("/video/detail/:id", getVideo);
 route.post("/videos", createVideo);
 route.patch("/videos/:id", updateVideo)
 
-route.get("/coursesstudy/:usertopics_id", listCourseStudy);
-route.post("/coursestudy", createCourse);
+route.get("/courses/:usertopics_id", listCourseStudy);
+route.get("/course/:id", getCourse)
+route.post("/course", createCourse);
+route.patch("/course/:id", updateCourse)
 
 route.get("/lessons/:course_id", listLessons)
 route.get("/lesson/:id", getLesson)

@@ -15,7 +15,11 @@ const createLesson = async (lesson, done, course_id, user_id) => {
 }
 
 const updateLesson = async (id, lesson, done) => {
-  lesson = lesson.trim()
+  if (lesson.trim()) {
+    lesson = lesson.trim()
+  } else {
+    lesson = undefined
+  }
   const updated_at = new Date()
   const iten = await knex("lessons_course")
     .update({ lesson, done, updated_at })
