@@ -1,7 +1,6 @@
 const knex = require("../server/connection");
 
 const emailExists = async (email) => {
-  console.log(email);
   const list = await knex("users").select("email").where({ email }).first();
   return list;
 };
