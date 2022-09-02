@@ -3,6 +3,8 @@ const jwt = require("jsonwebtoken");
 const modelUsers = require("../models/users");
 const schemaUsers = require("../validations/users");
 
+const secretToken = process.env.TOKEN_SECRET
+
 const signUp = async (req, res) => {
   const { name, email, username, password } = req.body;
 
@@ -58,7 +60,7 @@ const signIn = async (req, res) => {
       return res.status(400).json({ message: "Usuário ou senha incorretos" });
     }
 
-    const token = jwt.sign({ id: user.id }, "orangeNote", { expiresIn: "1h" });
+    const token = jwt.sign({ id: user.id }, secretToken, { expiresIn: "1h" });
 
     const { password: _, ...userData } = user;
 

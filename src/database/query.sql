@@ -8,20 +8,23 @@ CREATE TABLE users(
 
 CREATE TABLE studies(
     id SERIAL PRIMARY KEY,
-    study VARCHAR(50) UNIQUE NOT NULL
+    study VARCHAR(50) UNIQUE NOT NULL,
+  user_id INT REFERENCES users(id)
 );
 
 CREATE TABLE topics(
 	id SERIAL PRIMARY KEY,
-    topic VARCHAR(50) UNIQUE NOT NULL
+    topic VARCHAR(50) UNIQUE NOT NULL,
+  user_id INT REFERENCES users(id)
 );
 
 CREATE TABLE user_topics(
 id SERIAL PRIMARY KEY,
   study_id INT REFERENCES studies(id),
   topic_id INT REFERENCES topics(id),
-  user_id INT REFERENCES users(id)
-)
+  user_id INT REFERENCES users(id),
+  	last_change TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
 CREATE TABLE courses(
 	id SERIAL PRIMARY KEY,

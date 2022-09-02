@@ -56,16 +56,20 @@ const getVideoById = async (id) => {
 }
 
 const updateVideo = async (id, video, description, link, done) => {
-  if (video.trim()) {
+  if (video && video.trim()) {
     video = video.trim()
   } else {
     video = undefined
   }
-  description ? description = description.trim() : "";
-  const created_at = new Date()
+  if (description && description.trim()) {
+    description = description.trim()
+  } else {
+    description = undefined
+  }
+  const date = new Date()
 
   const iten = await knex("videos")
-    .update({ video, description, link, done, created_at })
+    .update({ video, description, link, done, last_change: date })
     .where({ id })
     .returning("*")
   return iten

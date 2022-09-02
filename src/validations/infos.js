@@ -1,11 +1,15 @@
 const yup = require("./config")
 
+const newStudySchema = yup.object().shape({
+  study: yup.string().required()
+})
+
 const newTopicSchema = yup.object().shape({
   topic: yup.string().required()
 })
 
-const newStudySchema = yup.object().shape({
-  area_id: yup.number().required(),
+const newStudyTopicSchema = yup.object().shape({
+  study_id: yup.number().required(),
   topic_id: yup.number().required()
 })
 
@@ -13,5 +17,6 @@ const newStudySchema = yup.object().shape({
 
 module.exports = {
   newTopicSchema,
-  newStudySchema
+  newStudySchema,
+  newStudyTopicSchema
 }

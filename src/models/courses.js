@@ -65,11 +65,10 @@ const updateCouse = async (id, course, description, link, done) => {
     course = undefined
   }
   description ? description = description.trim() : "";
-  // const date = new Date()
+  const date = new Date()
 
   const iten = knex("courses")
-    .update({ course, description, link, done, })
-    // created_at: date
+    .update({ course, description, link, done, last_change: date })
     .where({ id })
     .returning("*")
   return iten

@@ -55,16 +55,20 @@ const getArticleById = async (id) => {
 }
 
 const updateArticle = async (id, article, description, link, done) => {
-  if (article.trim()) {
+  if (article && article.trim()) {
     article = article.trim()
   } else {
     article = undefined
   }
-  description ? description = description.trim() : "";
+  if (description && description.trim()) {
+    description = description.trim()
+  } else {
+    description = undefined
+  }
   const date = new Date()
 
   const iten = knex("articles")
-    .update({ article, description, link, done, created_at: date })
+    .update({ article, description, link, done, last_change: date })
     .where({ id })
     .returning("*")
   return iten

@@ -1,5 +1,5 @@
 const express = require("express");
-const { listAreas, listTopics, listUserTopics, createTopic, createStudy } = require("../controllers/infos");
+const { listTopics, listUserTopics, createTopic, createStudyTopic, listStudies, createStudy } = require("../controllers/infos");
 const { listArticlesStudy, createArticle, getArticle, updateArticle } = require("../controllers/articles");
 const { createVideo, listVideosStudy, getVideo, updateVideo } = require("../controllers/videos");
 const { createCourse, listCourseStudy, getCourse, updateCourse } = require("../controllers/courses")
@@ -16,11 +16,12 @@ route.use(userTokenVerify);
 
 route.get("/userData", userData);
 
-route.get("/areas", listAreas);
-route.get("/topics", listTopics);
+route.post("/studies", createStudy)
+route.get("/studies", listStudies);
 route.post("/topics", createTopic)
+route.get("/topics", listTopics);
 route.get("/userTopics", listUserTopics);
-route.post("/userTopics", createStudy);
+route.post("/userTopics", createStudyTopic);
 
 route.get("/articles/:usertopics_id", listArticlesStudy);
 route.get("/article/detail/:id", getArticle);
