@@ -84,6 +84,12 @@ const listUserTopics = async (req, res) => {
       return res.status(400).json({ message: "Nenhum tópico encontrado." })
     }
 
+    list.forEach((iten) => {
+      iten.name = `${iten.study} - ${iten.topic}`
+      iten.contents = Number(iten.textos) + Number(iten.videos) + Number(iten.cursos)
+      iten.done = Number(iten.textos_finalizados) + Number(iten.videos_finalizados) + Number(iten.cursos_finalizados)
+    });
+
     return res.status(200).json(list)
   } catch (error) {
     return res.status(500).json({ message: error.message })
