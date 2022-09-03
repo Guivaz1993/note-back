@@ -69,7 +69,7 @@ const signIn = async (req, res) => {
       token,
     });
   } catch (error) {
-    return res.status(500).json({ message: getErrorMessage(error) });
+    return res.status(500).json({ message: error.message });
   }
 };
 

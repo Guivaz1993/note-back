@@ -63,7 +63,7 @@ const createTopic = async (req, res) => {
       return res.status(400).json({ message: "Esse tópico já existe" })
     }
 
-    const newTopic = await modelInfos.createTopic(topic)
+    const newTopic = await modelInfos.createTopic(topic, id)
 
     if (newTopic.length === 0) {
       return res.status(400).json({ message: "Não foi possível criar o novo tópico de estudo" })
@@ -83,6 +83,12 @@ const listUserTopics = async (req, res) => {
     if (list.length === 0) {
       return res.status(400).json({ message: "Nenhum tópico encontrado." })
     }
+
+    list.forEach((iten) => {
+      iten.name = `${iten.study} - ${iten.topic}`
+      iten.contents = Number(iten.textos) + Number(iten.videos) + Number(iten.cursos)
+      iten.done = Number(iten.textos_finalizados) + Number(iten.videos_finalizados) + Number(iten.cursos_finalizados)
+    });
 
     return res.status(200).json(list)
   } catch (error) {
