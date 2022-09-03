@@ -42,7 +42,7 @@ const createTopic = async (topic, user_id) => {
 
 const listUserTopics = async (id) => {
   const list = await knex("user_topics")
-    .select("user_topics.id as id", "studies.study", "topics.topic",
+    .select("user_topics.id as id", "studies.study", "topics.topic", "topics.id as topic_id",
       knex.raw("(SELECT COUNT(*) FROM articles  WHERE articles.usertopics_id = user_topics.id) AS textos"),
       knex.raw("(SELECT COUNT(*) FROM articles WHERE articles.done=true AND articles.usertopics_id = user_topics.id) AS textos_finalizados"),
       knex.raw("(SELECT COUNT(*) FROM videos  WHERE videos.usertopics_id = user_topics.id) AS videos"),

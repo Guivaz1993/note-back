@@ -13,6 +13,6 @@ app.use(cors());
 app.use(routes);
 
 app.listen(process.env.PORT, () => {
-  console.log(`TypeScript with Express
+  console.log(`JavaScript with Express
   http://localhost:${process.env.PORT}/`);
 });

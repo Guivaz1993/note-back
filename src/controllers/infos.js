@@ -63,7 +63,7 @@ const createTopic = async (req, res) => {
       return res.status(400).json({ message: "Esse tópico já existe" })
     }
 
-    const newTopic = await modelInfos.createTopic(topic)
+    const newTopic = await modelInfos.createTopic(topic, id)
 
     if (newTopic.length === 0) {
       return res.status(400).json({ message: "Não foi possível criar o novo tópico de estudo" })

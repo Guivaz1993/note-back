@@ -70,7 +70,6 @@ const updateCourse = async (req, res) => {
     await updateCourseSchema.validate(req.body)
 
     if (course) {
-      console.log("Validar nome")
       const courseExists = await modelCourses.courseExists(course, "", usertopics_id, user_id, id)
 
       if (courseExists) {
@@ -78,15 +77,12 @@ const updateCourse = async (req, res) => {
       }
     }
     if (link) {
-      console.log("Validar link")
       const courseExists = await modelCourses.courseExists("", link, usertopics_id, user_id, id)
 
       if (courseExists) {
         return res.status(400).json({ message: "Já existe um curso cadastrado com esse link." })
       }
     }
-
-    console.log("Atualizar curso")
     const updateCourse = await modelCourses.updateCouse(id, course, description, link, done)
 
     if (updateCourse.length === 0) {
