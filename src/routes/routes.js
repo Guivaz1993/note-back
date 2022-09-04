@@ -2,7 +2,7 @@ const express = require("express");
 const { listTopics, listUserTopics, createTopic, createStudyTopic, listStudies, createStudy } = require("../controllers/infos");
 const { listArticlesStudy, createArticle, getArticle, updateArticle } = require("../controllers/articles");
 const { createVideo, listVideosStudy, getVideo, updateVideo } = require("../controllers/videos");
-const { createCourse, listCourseStudy, getCourse, updateCourse } = require("../controllers/courses")
+const { createCourse, listCourseStudy, getCourse, updateCourse, lastLessonCourse } = require("../controllers/courses")
 const { signIn, signUp, userData } = require("../controllers/users");
 const userTokenVerify = require("../middlewares/userTokenVerfify");
 const { getLesson, createLesson, updateLesson, listLessons } = require("../controllers/lessons");
@@ -20,8 +20,8 @@ route.post("/studies", createStudy)
 route.get("/studies", listStudies);
 route.post("/topics", createTopic)
 route.get("/topics", listTopics);
-route.get("/userTopics", listUserTopics);
-route.post("/userTopics", createStudyTopic);
+route.get("/usertopics", listUserTopics);
+route.post("/usertopics", createStudyTopic);
 
 route.get("/articles/:usertopics_id", listArticlesStudy);
 route.get("/article/detail/:id", getArticle);
@@ -37,6 +37,7 @@ route.get("/courses/:usertopics_id", listCourseStudy);
 route.get("/course/:id", getCourse)
 route.post("/course", createCourse);
 route.patch("/course/:id", updateCourse)
+route.get("/lastcourse", lastLessonCourse)
 
 route.get("/lessons/:course_id", listLessons)
 route.get("/lesson/:id", getLesson)

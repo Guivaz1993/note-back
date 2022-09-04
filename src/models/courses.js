@@ -58,7 +58,7 @@ const createCourse = async (course, description, link, done, topic_id, usertopic
   return newCourse
 }
 
-const updateCouse = async (id, course, description, link, done) => {
+const updateCourse = async (id, course, description, link, done) => {
   if (course && course.trim()) {
     course = course.trim()
   } else {
@@ -74,10 +74,21 @@ const updateCouse = async (id, course, description, link, done) => {
   return iten
 }
 
+const lastCourse = async (user_id) => {
+  const list = knex("lessons_course")
+    .select("courses.id", "courses.course")
+    .leftJoin("courses", "courses.id", "lessons_course.course_id")
+    .where({ "lessons_course.user_id": user_id })
+    .orderBy("lessons_course.last_change", "desc")
+    .first()
+  return list
+}
+
 module.exports = {
   listCoursesStudy,
   courseExists,
   getCourse,
   createCourse,
-  updateCouse
+  updateCourse,
+  lastCourse
 }
