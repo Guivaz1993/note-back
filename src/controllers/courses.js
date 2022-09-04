@@ -83,7 +83,7 @@ const updateCourse = async (req, res) => {
         return res.status(400).json({ message: "Já existe um curso cadastrado com esse link." })
       }
     }
-    const updateCourse = await modelCourses.updateCouse(id, course, description, link, done)
+    const updateCourse = await modelCourses.updateCourse(id, course, description, link, done)
 
     if (updateCourse.length === 0) {
       return res.status(400).json({ message: "Desculpe não conseguimos atualizar seu curso tente novamente mais tarde." })
@@ -95,9 +95,25 @@ const updateCourse = async (req, res) => {
   }
 }
 
+const lastLessonCourse = async (req, res) => {
+  const { id } = req.user
+  try {
+    const course = await modelCourses.lastCourse(id)
+
+    if (!course) {
+      return res.status(400).json({ message: "Desculpa não foi possível encontrar seu curso" })
+    }
+
+    return res.status(200).json(course)
+  } catch (error) {
+    return res.status(500).json({ message: error.message })
+  }
+}
+
 module.exports = {
   listCourseStudy,
   createCourse,
   getCourse,
-  updateCourse
+  updateCourse,
+  lastLessonCourse
 }
