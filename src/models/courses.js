@@ -2,7 +2,7 @@ const knex = require("../server/connection")
 
 const listCoursesStudy = async (usertopics_id) => {
   const list = await knex("courses")
-    .select("courses.id", "courses.course", "courses.description", knex.raw("(SELECT COUNT(lessons_course.id) FROM lessons_course     WHERE lessons_course.course_id=courses.id     AND lessons_course.done=TRUE) AS lessons_done"))
+    .select("courses.id", "courses.course", "courses.description", "courses.done", "courses.last_change", knex.raw("(SELECT COUNT(lessons_course.id) FROM lessons_course     WHERE lessons_course.course_id=courses.id     AND lessons_course.done=TRUE) AS lessons_done"))
     .count("lessons_course.id", { as: "Lessons" })
     .leftJoin("lessons_course", "lessons_course.course_id", "courses.id")
     .where({ usertopics_id })
