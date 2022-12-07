@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const modelUsers = require("../models/users");
 const schemaUsers = require("../validations/users");
 
-const secretToken = process.env.TOKEN_SECRET
+const secretToken = process.env.TOKEN_SECRET;
 
 const signUp = async (req, res) => {
   const { name, email, username, password } = req.body;
@@ -84,5 +84,5 @@ const userData = async (req, res) => {
 module.exports = {
   signIn,
   signUp,
-  userData
-}
+  userData,
+};

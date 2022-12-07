@@ -1,0 +1,888 @@
+_type: export
+__export_format: 4
+__export_date: 2022-09-04T17:17:44.502Z
+__export_source: insomnia.desktop.app:v2022.5.1
+resources:
+  - _id: req_3de75cb5de0a4cfe828ca3919b37d42d
+    parentId: fld_b3e3e6ee62544956beda4272d41e4af6
+    modified: 1662146474445
+    created: 1661459722585
+    url: "{{ _.base_url }}/userData"
+    name: User Data
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_60b082c20b174a259855c89c311c651c
+        name: token
+        value: "{% response 'body', 'req_4c596dca2971413782878b4f4ae7510f',
+          'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1660669832186.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_b3e3e6ee62544956beda4272d41e4af6
+    parentId: wrk_1785f4b1cfe447659136369c735ef4e1
+    modified: 1662058734759
+    created: 1662042440480
+    name: User
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1662058677610
+    _type: request_group
+  - _id: wrk_1785f4b1cfe447659136369c735ef4e1
+    parentId: null
+    modified: 1661448935511
+    created: 1661448935511
+    name: Orange Note
+    description: ""
+    scope: collection
+    _type: workspace
+  - _id: req_4c596dca2971413782878b4f4ae7510f
+    parentId: fld_b3e3e6ee62544956beda4272d41e4af6
+    modified: 1662311649883
+    created: 1661457912004
+    url: "{{ _.base_url }}/signin"
+    name: SignIn
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: '{  "username":"guivaz", "password":"12345678" }'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_d7336010931349ebab5110889c5ad065
+    authentication: {}
+    metaSortKey: -1660669832136.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_75798cae156a4615ae0b77d14d7e037e
+    parentId: fld_b3e3e6ee62544956beda4272d41e4af6
+    modified: 1662303784814
+    created: 1661450354192
+    url: "{{ _.base_url }}/signup"
+    name: SignUp
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: '{ "name":"Guilherme Vaz", "email":"gui@email.com", "username":"guivaz",
+        "password":"12345678" }'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_d7336010931349ebab5110889c5ad065
+    authentication: {}
+    metaSortKey: -1660669832086.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_9c050f2b2700483191aed3b34586d610
+    parentId: fld_484e087a54d041b4b32cf1ecd6c66adb
+    modified: 1662226801252
+    created: 1662058704636
+    url: "{{ _.base_url }}/studies"
+    name: Create Study
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"study":"Matamática"
+        }
+    parameters: []
+    headers:
+      - id: pair_60b082c20b174a259855c89c311c651c
+        name: token
+        value: "{% response 'body', 'req_4c596dca2971413782878b4f4ae7510f',
+          'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_a38a751b72d94e68b2695067d27a63a1
+    authentication: {}
+    metaSortKey: -1660280278975.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_484e087a54d041b4b32cf1ecd6c66adb
+    parentId: wrk_1785f4b1cfe447659136369c735ef4e1
+    modified: 1662058677560
+    created: 1662058677560
+    name: Infos
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1662058677560
+    _type: request_group
+  - _id: req_61b4eea8cb534f1c9a4609b96e570b46
+    parentId: fld_484e087a54d041b4b32cf1ecd6c66adb
+    modified: 1662311660437
+    created: 1661632216548
+    url: "{{ _.base_url }}/studies"
+    name: List Areas
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_60b082c20b174a259855c89c311c651c
+        name: token
+        value: "{% response 'body', 'req_4c596dca2971413782878b4f4ae7510f',
+          'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1660280278925.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_e78414499cc94ba99c4bac287e75cf43
+    parentId: fld_484e087a54d041b4b32cf1ecd6c66adb
+    modified: 1662311661694
+    created: 1661717864901
+    url: "{{ _.base_url }}/topics"
+    name: Create Topics
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"topic":"Trigonometria"
+        }
+    parameters: []
+    headers:
+      - id: pair_60b082c20b174a259855c89c311c651c
+        name: token
+        value: "{% response 'body', 'req_4c596dca2971413782878b4f4ae7510f',
+          'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_a38a751b72d94e68b2695067d27a63a1
+    authentication: {}
+    metaSortKey: -1660280278900.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_0747268edeee462ba7e083999a7a51da
+    parentId: fld_484e087a54d041b4b32cf1ecd6c66adb
+    modified: 1662311662421
+    created: 1661632224872
+    url: "{{ _.base_url }}/topics"
+    name: List Topics
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_60b082c20b174a259855c89c311c651c
+        name: token
+        value: "{% response 'body', 'req_4c596dca2971413782878b4f4ae7510f',
+          'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1660280278875.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_327c2d2960484af5b570a3a918144cb2
+    parentId: fld_484e087a54d041b4b32cf1ecd6c66adb
+    modified: 1662311667250
+    created: 1661719126149
+    url: "{{ _.base_url }}/usertopics"
+    name: Create Study Topic
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"topic_id":7,
+        	"study_id":5
+        }
+    parameters: []
+    headers:
+      - id: pair_60b082c20b174a259855c89c311c651c
+        name: token
+        value: "{% response 'body', 'req_4c596dca2971413782878b4f4ae7510f',
+          'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_cf9bc6b714ea438184ba3f658a562560
+    authentication: {}
+    metaSortKey: -1660280278850.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_9fb2059420ca48c2a9ac224dc60f9156
+    parentId: fld_484e087a54d041b4b32cf1ecd6c66adb
+    modified: 1662311672234
+    created: 1661632230194
+    url: "{{ _.base_url }}/usertopics"
+    name: My topics
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_60b082c20b174a259855c89c311c651c
+        name: token
+        value: "{% response 'body', 'req_4c596dca2971413782878b4f4ae7510f',
+          'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1660280278825.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_11a9b5a401554e4a8f4bbf75e91b2832
+    parentId: fld_d17d601cab084261bc5bd89f89571330
+    modified: 1662311679249
+    created: 1661884228667
+    url: "{{ _.base_url }}/courses/4"
+    name: List Course
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_60b082c20b174a259855c89c311c651c
+        name: token
+        value: "{% response 'body', 'req_4c596dca2971413782878b4f4ae7510f',
+          'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1659942463206.5098
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_d17d601cab084261bc5bd89f89571330
+    parentId: wrk_1785f4b1cfe447659136369c735ef4e1
+    modified: 1662043289501
+    created: 1662043289501
+    name: Courses
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1662043289501
+    _type: request_group
+  - _id: req_c595ec88e6f1417f837b00f2788b4e6d
+    parentId: fld_d17d601cab084261bc5bd89f89571330
+    modified: 1662311680151
+    created: 1661884270610
+    url: "{{ _.base_url }}/course"
+    name: Create Course
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"course":"Introdução ao react.js",
+        	"description":"Descrição desse curso para ver se sera validado",
+        	"link":"http://www.link.ch.br",
+        	"topic_id":1,
+        	"usertopics_id":2
+        }
+    parameters: []
+    headers:
+      - id: pair_60b082c20b174a259855c89c311c651c
+        name: token
+        value: "{% response 'body', 'req_4c596dca2971413782878b4f4ae7510f',
+          'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_39f7518e676344baac38b8369c092f53
+    authentication: {}
+    metaSortKey: -1659942463156.5098
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_4b4c74c9f36d4defa9b0b8f2e8c49b47
+    parentId: fld_d17d601cab084261bc5bd89f89571330
+    modified: 1662303802245
+    created: 1662045241493
+    url: "{{ _.base_url }}/course/1"
+    name: Get Course
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_60b082c20b174a259855c89c311c651c
+        name: token
+        value: "{% response 'body', 'req_4c596dca2971413782878b4f4ae7510f',
+          'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1659942463106.5098
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_7d950268c7924b1fa63edd2e1a8f0424
+    parentId: fld_d17d601cab084261bc5bd89f89571330
+    modified: 1662311550826
+    created: 1662303808926
+    url: "{{ _.base_url }}/lastcourse"
+    name: Last Lesson Course
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_60b082c20b174a259855c89c311c651c
+        name: token
+        value: "{% response 'body', 'req_4c596dca2971413782878b4f4ae7510f',
+          'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1659941892509.3496
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_3bf7a3c1966243ac9431d4757898a91b
+    parentId: fld_d17d601cab084261bc5bd89f89571330
+    modified: 1662263686729
+    created: 1662045316515
+    url: "{{ _.base_url }}/course/1"
+    name: Update Course
+    description: ""
+    method: PATCH
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"done":true,
+        	"usertopics_id":2
+        }
+    parameters: []
+    headers:
+      - id: pair_60b082c20b174a259855c89c311c651c
+        name: token
+        value: "{% response 'body', 'req_4c596dca2971413782878b4f4ae7510f',
+          'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_302a44a9cb6e48f38026550dd520c60f
+    authentication: {}
+    metaSortKey: -1659941321912.1897
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_812f2159c80643d8b567b71f90000391
+    parentId: fld_71e8fc84da8e4e5a909dd15d4d246da2
+    modified: 1662299354263
+    created: 1661963609468
+    url: "{{ _.base_url }}/lessons"
+    name: Create Lessons
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"lesson":"Aula 1 - Iniciando o seu Projeto",
+        	"course_id":1
+        }
+    parameters: []
+    headers:
+      - id: pair_60b082c20b174a259855c89c311c651c
+        name: token
+        value: "{% response 'body', 'req_4c596dca2971413782878b4f4ae7510f',
+          'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_fede6c9fd8ea467c97adab1850f1a011
+    authentication: {}
+    metaSortKey: -1659940180717.8696
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_71e8fc84da8e4e5a909dd15d4d246da2
+    parentId: wrk_1785f4b1cfe447659136369c735ef4e1
+    modified: 1662042485190
+    created: 1662042485190
+    name: Lessons
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1662042485190
+    _type: request_group
+  - _id: req_cab1dc0c852245d4bfd282169f6db9e1
+    parentId: fld_71e8fc84da8e4e5a909dd15d4d246da2
+    modified: 1662299253929
+    created: 1661963565766
+    url: "{{ _.base_url }}/lesson/1"
+    name: Get Lesson
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_60b082c20b174a259855c89c311c651c
+        name: token
+        value: "{% response 'body', 'req_4c596dca2971413782878b4f4ae7510f',
+          'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1659940180667.8696
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_77e110ca9166412d9ba34ffb96046d0d
+    parentId: fld_71e8fc84da8e4e5a909dd15d4d246da2
+    modified: 1662299253308
+    created: 1661971449746
+    url: "{{ _.base_url }}/lessons/1"
+    name: List Lesson
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_60b082c20b174a259855c89c311c651c
+        name: token
+        value: "{% response 'body', 'req_4c596dca2971413782878b4f4ae7510f',
+          'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1659940180617.8696
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_a4662518e46745059f02070d2dfd04d5
+    parentId: fld_71e8fc84da8e4e5a909dd15d4d246da2
+    modified: 1662299203332
+    created: 1661963728890
+    url: "{{ _.base_url }}/lessons/1"
+    name: Update Lesson
+    description: ""
+    method: PATCH
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"done":true,
+        	"course_id":1
+        }
+    parameters: []
+    headers:
+      - id: pair_60b082c20b174a259855c89c311c651c
+        name: token
+        value: "{% response 'body', 'req_4c596dca2971413782878b4f4ae7510f',
+          'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_88cf21ce0fe04eadb17cada37ef3c10d
+    authentication: {}
+    metaSortKey: -1659940180567.8696
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_d349bdfb548c4427a5f837c14ef118c1
+    parentId: fld_49fb25af6a3d48f8ae4fde64dc630b7a
+    modified: 1662263800284
+    created: 1661816153863
+    url: "{{ _.base_url }}/videos"
+    name: Create Video
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"video":"Vamos conhecer a base do JS",
+        	"description":"Explicação de como é a cara de um arquivo js",
+        	"link":"http://www.js.com",
+        	"topic_id":2,
+        	"usertopics_id":1
+        }
+    parameters: []
+    headers:
+      - id: pair_60b082c20b174a259855c89c311c651c
+        name: token
+        value: "{% response 'body', 'req_4c596dca2971413782878b4f4ae7510f',
+          'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_39f7518e676344baac38b8369c092f53
+    authentication: {}
+    metaSortKey: -1659948550026.2168
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_49fb25af6a3d48f8ae4fde64dc630b7a
+    parentId: wrk_1785f4b1cfe447659136369c735ef4e1
+    modified: 1661985127128
+    created: 1661985127128
+    name: Videos
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1661985127128
+    _type: request_group
+  - _id: req_9c105edef76c40be96fcbefb7389721c
+    parentId: fld_49fb25af6a3d48f8ae4fde64dc630b7a
+    modified: 1662265575668
+    created: 1661816193420
+    url: "{{ _.base_url }}/videos/1"
+    name: List Videos
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_60b082c20b174a259855c89c311c651c
+        name: token
+        value: "{% response 'body', 'req_4c596dca2971413782878b4f4ae7510f',
+          'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1659948549976.2168
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_2301dedf4d9941bf90f0c4aa004e1300
+    parentId: fld_49fb25af6a3d48f8ae4fde64dc630b7a
+    modified: 1662263799109
+    created: 1661985289634
+    url: "{{ _.base_url }}/video/detail/1"
+    name: Get Videos
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_60b082c20b174a259855c89c311c651c
+        name: token
+        value: "{% response 'body', 'req_4c596dca2971413782878b4f4ae7510f',
+          'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1659945506591.3633
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_58ff4213546e4939896176a9d0c64d97
+    parentId: fld_49fb25af6a3d48f8ae4fde64dc630b7a
+    modified: 1662263782660
+    created: 1661985338548
+    url: "{{ _.base_url }}/videos/1"
+    name: Update Video
+    description: ""
+    method: PATCH
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"done":true,
+        	"usertopics_id":1
+        }
+    parameters: []
+    headers:
+      - id: pair_60b082c20b174a259855c89c311c651c
+        name: token
+        value: "{% response 'body', 'req_4c596dca2971413782878b4f4ae7510f',
+          'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_952d817ea6af4b81b2db6a401edb9f04
+    authentication: {}
+    metaSortKey: -1659945506541.3633
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_7865a8ba157346449420b0329bae2994
+    parentId: fld_ec21c71d9a45426897ad7637f9e326de
+    modified: 1662231907859
+    created: 1661806493024
+    url: "{{ _.base_url }}/articles/3"
+    name: List Article
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_60b082c20b174a259855c89c311c651c
+        name: token
+        value: "{% response 'body', 'req_4c596dca2971413782878b4f4ae7510f',
+          'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1659963766900.4844
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_ec21c71d9a45426897ad7637f9e326de
+    parentId: wrk_1785f4b1cfe447659136369c735ef4e1
+    modified: 1661976715864
+    created: 1661976715864
+    name: Article
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1661976715865
+    _type: request_group
+  - _id: req_3b33a47d97a04284899c6d8d78cf274a
+    parentId: fld_ec21c71d9a45426897ad7637f9e326de
+    modified: 1662259908718
+    created: 1661976775512
+    url: "{{ _.base_url }}/article/detail/1"
+    name: Get Article
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_60b082c20b174a259855c89c311c651c
+        name: token
+        value: "{% response 'body', 'req_4c596dca2971413782878b4f4ae7510f',
+          'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        description: ""
+    authentication: {}
+    metaSortKey: -1659963766875.4844
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_60b343a3f0c84ad2b4239b744f68f8aa
+    parentId: fld_ec21c71d9a45426897ad7637f9e326de
+    modified: 1662263175742
+    created: 1661976848765
+    url: "{{ _.base_url }}/article/2"
+    name: Update Article
+    description: ""
+    method: PATCH
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"description":"        ",
+        	"done":true,
+        	"usertopics_id":3
+        }
+    parameters: []
+    headers:
+      - id: pair_60b082c20b174a259855c89c311c651c
+        name: token
+        value: "{% response 'body', 'req_4c596dca2971413782878b4f4ae7510f',
+          'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_2b95d291575a4a7081bb94400f6d5098
+    authentication: {}
+    metaSortKey: -1659963766862.9844
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_cdf0b6832e0943dea65b1733f0b12a8d
+    parentId: fld_ec21c71d9a45426897ad7637f9e326de
+    modified: 1662263170722
+    created: 1661807422995
+    url: "{{ _.base_url }}/article"
+    name: Create Article
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"article":"Como formatar uma data usando o date fns 2",
+        	"description":"Aprendendo a formatar as datas",
+        	"link":"http://www.js.com.br",
+        	"topic_id":1,
+        	"usertopics_id":3
+        }
+    parameters: []
+    headers:
+      - id: pair_60b082c20b174a259855c89c311c651c
+        name: token
+        value: "{% response 'body', 'req_4c596dca2971413782878b4f4ae7510f',
+          'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        description: ""
+      - name: Content-Type
+        value: application/json
+        id: pair_39f7518e676344baac38b8369c092f53
+    authentication: {}
+    metaSortKey: -1659963766850.4844
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_ef2d6dd463f9641634d3d3669000fb0d50f0064c
+    parentId: wrk_1785f4b1cfe447659136369c735ef4e1
+    modified: 1662311649408
+    created: 1661448935529
+    name: Base Environment
+    data:
+      base_url1: http://localhost:8000
+      base_url: https://orange-note.herokuapp.com
+    dataPropertyOrder:
+      "&":
+        - base_url1
+        - base_url
+    color: null
+    isPrivate: false
+    metaSortKey: 1661448935529
+    _type: environment
+  - _id: jar_ef2d6dd463f9641634d3d3669000fb0d50f0064c
+    parentId: wrk_1785f4b1cfe447659136369c735ef4e1
+    modified: 1661448935530
+    created: 1661448935530
+    name: Default Jar
+    cookies: []
+    _type: cookie_jar
+  - _id: spc_5f6ba9f3787240f799f0c7c3adbdf2a2
+    parentId: wrk_1785f4b1cfe447659136369c735ef4e1
+    modified: 1661448935519
+    created: 1661448935519
+    fileName: Orange Note
+    contents: ""
+    contentType: yaml
+    _type: api_spec
