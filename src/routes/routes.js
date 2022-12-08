@@ -44,36 +44,34 @@ route.get("/", (_, response) => {
 route.post("/signup", signUp);
 route.post("/signin", signIn);
 
-route.use(userTokenVerify);
+route.get("/userData", userTokenVerify, userData);
 
-route.get("/userData", userData);
+route.post("/studies", userTokenVerify, createStudy);
+route.get("/studies", userTokenVerify, listStudies);
+route.post("/topics", userTokenVerify, createTopic);
+route.get("/topics", userTokenVerify, listTopics);
+route.get("/usertopics", userTokenVerify, listUserTopics);
+route.post("/usertopics", userTokenVerify, createStudyTopic);
 
-route.post("/studies", createStudy);
-route.get("/studies", listStudies);
-route.post("/topics", createTopic);
-route.get("/topics", listTopics);
-route.get("/usertopics", listUserTopics);
-route.post("/usertopics", createStudyTopic);
+route.get("/articles/:usertopics_id", userTokenVerify, listArticlesStudy);
+route.get("/article/detail/:id", userTokenVerify, getArticle);
+route.post("/article", userTokenVerify, createArticle);
+route.patch("/article/:id", userTokenVerify, updateArticle);
 
-route.get("/articles/:usertopics_id", listArticlesStudy);
-route.get("/article/detail/:id", getArticle);
-route.post("/article", createArticle);
-route.patch("/article/:id", updateArticle);
+route.get("/videos/:usertopics_id", userTokenVerify, listVideosStudy);
+route.get("/video/detail/:id", userTokenVerify, getVideo);
+route.post("/videos", userTokenVerify, createVideo);
+route.patch("/videos/:id", userTokenVerify, updateVideo);
 
-route.get("/videos/:usertopics_id", listVideosStudy);
-route.get("/video/detail/:id", getVideo);
-route.post("/videos", createVideo);
-route.patch("/videos/:id", updateVideo);
+route.get("/courses/:usertopics_id", userTokenVerify, listCourseStudy);
+route.get("/course/:id", userTokenVerify, getCourse);
+route.post("/course", userTokenVerify, createCourse);
+route.patch("/course/:id", userTokenVerify, updateCourse);
+route.get("/lastcourse", userTokenVerify, lastLessonCourse);
 
-route.get("/courses/:usertopics_id", listCourseStudy);
-route.get("/course/:id", getCourse);
-route.post("/course", createCourse);
-route.patch("/course/:id", updateCourse);
-route.get("/lastcourse", lastLessonCourse);
-
-route.get("/lessons/:course_id", listLessons);
-route.get("/lesson/:id", getLesson);
-route.post("/lessons", createLesson);
-route.patch("/lessons/:id", updateLesson);
+route.get("/lessons/:course_id", userTokenVerify, listLessons);
+route.get("/lesson/:id", userTokenVerify, getLesson);
+route.post("/lessons", userTokenVerify, createLesson);
+route.patch("/lessons/:id", userTokenVerify, updateLesson);
 
 module.exports = route;
